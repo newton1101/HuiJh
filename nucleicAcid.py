@@ -21,13 +21,12 @@ class RNA:
                       'AGU':'Ser', 'AGC':'Ser', 'AGA':'Arg', 'AGC':'Arg', 
                       'GGU':'Gly', 'GGC':'Gly', 'GGA':'Gly', 'GGG':'Gly'}
     def __str__(self):
-        return "RNA 3'-" + self.base + "-5'"
+        return f"RNA 3'-{self.base}-5'"
     def complement(self): #상보적 RNA 객체 생성
         string = list(map(lambda x : self.pair[x], (self.base[::-1])))
         return RNA(''.join(string))
     def transcription(self): #전사, mRNA 객체 생성
-        mrna = self.complement()
-        return mRNA(mrna.base)
+        return mRNA(self.complement().base)
     def simpleTranslation(self): #단순 번역, base를 가공없이 바로 단백질로 번역
         def split(self):
             li = list(map(''.join, zip(*[iter(self.base)]*3)))
