@@ -103,12 +103,12 @@ class DNA(RNA):
         return "DNA 3'-" + self.base + "-5'"
     def show(self):
         c = {'T': color.red, 'C':color.green, 'G':color.yellow, 'A':color.blue}
-        term = 2
-        r = 1 # 회전반지름
-        R = 3
-        index = 0
-        angle = 36
-        theta = 0
+        term = 2 # 염기 간 간격
+        r = 1 # 염기반지름
+        R = 3 # 회전 반지름
+        index = 0 # 초기 위치
+        angle = 36 # 1회 회전량
+        theta = 0 # 초기 각도
         text(text="3'", pos=vector(-r-1, 0,0), align = 'center')
 
         before1 = vector(index, R*m.sin(m.radians(theta)), R*m.cos(m.radians(theta)))
@@ -134,8 +134,3 @@ class DNA(RNA):
             index += term
             theta += angle
         text(text="5'", pos=vector(index-term+r+1, 0 ,0), align = 'center')
-
-
-        
-a = DNA('tttaaagggccc')
-a.show()
