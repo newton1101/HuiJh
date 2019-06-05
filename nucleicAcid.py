@@ -57,6 +57,8 @@ class RNA:
             text(text = i, pos = vector(index, r+1, 0), align = 'center')
             index += term
         text(text="5'", pos=vector(index-term+r+1, 0 ,0), align = 'center')
+    def ligase(self, string):
+        self.base = self.base + string.upper()
         
 class mRNA(RNA):
     def __str__(self):
