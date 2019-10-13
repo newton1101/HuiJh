@@ -24,22 +24,23 @@ class RNA:
                       'AGU':'Ser', 'AGC':'Ser', 'AGA':'Arg', 'AGG':'Arg', 
                       'GGU':'Gly', 'GGC':'Gly', 'GGA':'Gly', 'GGG':'Gly'}
     def __str__(self):
-        return f"RNA 3'-{self.base}-5'"
+        return f"RNA 3'-{self.base}-5'"  # 5' --> 3' 방향으로 염기가 들어감
     def complement(self): #상보적 RNA 객체 생성
         string = list(map(lambda x : self.pair[x], (self.base[::-1])))
+        # 상보적인 염기를 짝짓고, list의 염기순서를 거로 뒤집어 핵산의 방향을 맞춘다.  
         return RNA(''.join(string))
     def transcription(self): #전사, mRNA 객체 생성
         return mRNA(self.complement().base)
     def simpleTranslation(self): #단순 번역, base를 가공없이 바로 단백질로 번역
         li = list(map(''.join, zip(*[iter(self.base)]*3)))
-        if len(li[-1]) < 3:
-            li.pop()
+        if len(li[-1]) < 3: 
+            li.pop()   # 3개의 염기가 1개 아미노산 생성--> 염기수가 3개 미만이면 삭제
         li = list(map(lambda x : self.codon[x], li))
         return li
     def translation(self): #번역, mRNA로 만든 후, AUG에서 시작, 종결코돈에서 종결
         mrna = self.transcription()
         if not 'AUG' in mrna.base:
-            return ''
+            return ''  # 개시코돈(AUG) 없으면 전사를 시작하지 않음
         else:
             start = RNA(mrna.base[mrna.base.index('AUG'):])
             li = start.simpleTranslation()
@@ -106,7 +107,7 @@ class DNA(RNA):
         X, Y, Z = pos
         c = {'T': color.red, 'C':color.green, 'G':color.yellow, 'A':color.blue}
         index = X # 초기 위치
-        angle = 36 # 1회 회전량
+        angle = 36 # 1회 회전량 = 360/10
         theta = 0 # 초기 각도
         text(text="3'", pos=vector(X-r-1, Y,Z), align = 'center')
 
